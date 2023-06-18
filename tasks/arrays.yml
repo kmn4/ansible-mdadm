@@ -10,8 +10,9 @@
 
 # Creating raid arrays
 # We pass yes in order to accept any questions prompted for yes|no
+# We pass --force in order to allow the number of devices to be 1
 - name: arrays | Creating Array(s)
-  shell: "yes | mdadm --create /dev/{{ item.name }} --level={{ item.level }} --raid-devices={{ item.devices|count }} {{ item.devices| join (' ') }}"
+  shell: "yes | mdadm --create /dev/{{ item.name }} --force --level={{ item.level }} --raid-devices={{ item.devices|count }} {{ item.devices| join (' ') }}"
   register: "array_created"
   with_items: '{{ mdadm_arrays }}'
   when: >
